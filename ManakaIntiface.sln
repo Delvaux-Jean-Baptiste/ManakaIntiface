@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManakaIntiface", "ManakaIntiface.csproj", "{BCCAEC9A-4A9A-408C-BB9F-19E5F3781FBD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BCCAEC9A-4A9A-408C-BB9F-19E5F3781FBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCCAEC9A-4A9A-408C-BB9F-19E5F3781FBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCCAEC9A-4A9A-408C-BB9F-19E5F3781FBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCCAEC9A-4A9A-408C-BB9F-19E5F3781FBD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3432097C-E7B3-4FBD-AA86-6B3EB6E8D428}
+	EndGlobalSection
+EndGlobal
