@@ -142,6 +142,7 @@
             dg_sextoys.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, nameDataGridViewTextBoxColumn, typeDataGridViewTextBoxColumn });
             dg_sextoys.DataSource = sexToyFunctionBindingSource;
             dg_sextoys.Location = new Point(38, 155);
+            dg_sextoys.MultiSelect = false;
             dg_sextoys.Name = "dg_sextoys";
             dg_sextoys.ReadOnly = true;
             dg_sextoys.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
