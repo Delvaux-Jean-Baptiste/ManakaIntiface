@@ -11,10 +11,12 @@ using System.Windows.Forms;
 
 namespace ManakaIntiface.WebClient
 {
+
     public class IntifaceClient
     {
         public SexToyFunction[] sexToyFunctions;
         public ButtplugClient client = new ButtplugClient("ButtplugClient");
+        public SFMToyWebsocketClient sFMClient = new SFMToyWebsocketClient();
 
         SexToyFunction vibratorStf;
         SexToyFunction pistonStf;
@@ -75,6 +77,10 @@ namespace ManakaIntiface.WebClient
 
         public void TriggerToys()
         {
+
+            //if (sFMClient != null)
+            //    sFMClient.ReceiveMessages().RunSynchronously();
+
             if (vibratorStf == null && pistonStf == null)
                 return;
 

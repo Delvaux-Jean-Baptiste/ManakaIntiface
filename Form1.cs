@@ -14,6 +14,7 @@ namespace ManakaIntiface
         SexToyFunction[] sexToyFunctions;
         //ButtplugClient client = new ButtplugClient("ButtplugClient");
         IntifaceClient intifaceClient = new IntifaceClient();
+        SFMToyWebsocketClient sFMClient = new SFMToyWebsocketClient();
 
         SexToyFunction vibratorStf;
         SexToyFunction pistonStf;
@@ -32,6 +33,11 @@ namespace ManakaIntiface
         {
             var returnString = await intifaceClient.ConnectIntiface();
             await scanDevicesBPClient();
+
+            await sFMClient.ConnectSFMToyClient();
+
+            intifaceClient.sFMClient = sFMClient;
+
             return returnString;
         }
 
