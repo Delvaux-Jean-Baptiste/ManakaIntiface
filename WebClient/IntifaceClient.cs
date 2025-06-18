@@ -14,9 +14,12 @@ namespace ManakaIntiface.WebClient
 
     public class IntifaceClient
     {
+        private const int sleepTimer = 250;
+
         public SexToyFunction[] sexToyFunctions;
         public ButtplugClient client = new ButtplugClient("ButtplugClient");
         public SFMToyWebsocketClient sFMClient = new SFMToyWebsocketClient();
+        public bool useSFM = false;
 
         SexToyFunction vibratorStf;
         SexToyFunction pistonStf;
@@ -60,6 +63,9 @@ namespace ManakaIntiface.WebClient
 
         public async Task<ButtplugClientDevice[]> scanDevicesIntifaceClient()
         {
+            if (!client.Connected)
+                return null;
+
             client.DeviceAdded += (aObj, aDeviceEventArgs) =>
                 Console.WriteLine($"Device {aDeviceEventArgs.Device.Name} Connected!");
 
@@ -75,85 +81,142 @@ namespace ManakaIntiface.WebClient
         }
 
 
-        public void TriggerToys()
+        public async void TriggerToys()
         {
+            
 
-            //if (sFMClient != null)
-            //    sFMClient.ReceiveMessages().RunSynchronously();
 
             if (vibratorStf == null && pistonStf == null)
                 return;
 
             while (true)
             {
-                if (vibratorStf != null)
+                
+
+                if (!useSFM)
                 {
-                    int width = 15;
-                    int height = 5;
-
-                    Bitmap bitmapSexToy = new Bitmap(width, height);
-                    Graphics g = Graphics.FromImage(bitmapSexToy);
-                    g.CopyFromScreen(0, Screen.PrimaryScreen.Bounds.Height - height, 0, 0, bitmapSexToy.Size);
-
-                    Color x = bitmapSexToy.GetPixel(1, 1);
-
-                    double scalar = 0;
-
-
-                    if (x.B == 255)
+                    if (vibratorStf != null)
                     {
-                        scalar = 0.33;
-                    }
-                    else if (x.G == 255)
-                    {
-                        scalar = 0.66;
-                    }
-                    else if (x.R == 255)
-                    {
-                        scalar = 1;
-                    }
-                    else
-                    {
-                        scalar = 0;
+                        int width = 15;
+                        int height = 5;
+
+                        Bitmap bitmapSexToy = new Bitmap(width, height);
+                        Graphics g = Graphics.FromImage(bitmapSexToy);
+                        g.CopyFromScreen(0, Screen.PrimaryScreen.Bounds.Height - height, 0, 0, bitmapSexToy.Size);
+
+                        Color x = bitmapSexToy.GetPixel(1, 1);
+
+                        double scalar = 0;
+
+
+                        if (x.B == 255)
+                        {
+                            scalar = 0.33;
+                        }
+                        else if (x.G == 255)
+                        {
+                            scalar = 0.66;
+                        }
+                        else if (x.R == 255)
+                        {
+                            scalar = 1;
+                        }
+                        else
+                        {
+                            scalar = 0;
+                        }
+
+                        TriggerSexToy(vibratorStf, scalar);
                     }
 
-                    TriggerSexToy(vibratorStf, scalar);
+                    if (pistonStf != null)
+                    {
+                        int width = 15;
+                        int height = 5;
+
+                        Bitmap bitmapSexToy = new Bitmap(width, height);
+                        Graphics g = Graphics.FromImage(bitmapSexToy);
+                        g.CopyFromScreen(0, Screen.PrimaryScreen.Bounds.Height - height, 0, 0, bitmapSexToy.Size);
+
+                        Color x = bitmapSexToy.GetPixel(11, 1);
+
+                        double scalar = 0;
+
+                        if (x.B == 255)
+                        {
+                            scalar = 0.33;
+                        }
+                        else if (x.G == 255)
+                        {
+                            scalar = 0.66;
+                        }
+                        else if (x.R == 255)
+                        {
+                            scalar = 1;
+                        }
+                        else
+                        {
+                            scalar = 0;
+                        }
+
+                        TriggerSexToy(pistonStf, scalar);
+                    }
                 }
-
-                if (pistonStf != null)
+                else
                 {
-                    int width = 15;
-                    int height = 5;
+                    string toysStatus = null;
+                    if (sFMClient != null)
+                        toysStatus = await sFMClient.ReceiveMessages();
 
-                    Bitmap bitmapSexToy = new Bitmap(width, height);
-                    Graphics g = Graphics.FromImage(bitmapSexToy);
-                    g.CopyFromScreen(0, Screen.PrimaryScreen.Bounds.Height - height, 0, 0, bitmapSexToy.Size);
-
-                    Color x = bitmapSexToy.GetPixel(11, 1);
-
-                    double scalar = 0;
-
-                    if (x.B == 255)
+                    if (toysStatus != null || toysStatus != "")
                     {
-                        scalar = 0.33;
-                    }
-                    else if (x.G == 255)
-                    {
-                        scalar = 0.66;
-                    }
-                    else if (x.R == 255)
-                    {
-                        scalar = 1;
-                    }
-                    else
-                    {
-                        scalar = 0;
-                    }
+                        toysStatus = new string(toysStatus.Where(Char.IsDigit).ToArray());
+                        int vibeStatus =int.Parse(toysStatus[0].ToString());
+                        int pistonStatus =int.Parse(toysStatus[1].ToString());
+                        double scalar = 0;
 
-                    TriggerSexToy(pistonStf, scalar);
+                        if (vibratorStf != null)
+                        {
+                            if (vibeStatus == 1)
+                            {
+                                scalar = 0.5;
+                            }
+                            else if (vibeStatus == 2)
+                            {
+                                scalar = 1;
+                            }
+                            else
+                            {
+                                scalar = 0;
+                            }
+
+                            TriggerSexToy(vibratorStf, scalar);
+                        }
+
+                        if (pistonStf != null)
+                        {
+                            if (pistonStatus == 1)
+                            {
+                                scalar = 0.33;
+                            }
+                            else if (pistonStatus == 2)
+                            {
+                                scalar = 0.66;
+                            }
+                            else if (pistonStatus == 3)
+                            {
+                                scalar = 1;
+                            }
+                            else
+                            {
+                                scalar = 0;
+                            }
+
+                            TriggerSexToy(pistonStf, scalar);
+                        }
+                    }
                 }
-
-                Thread.Sleep(250);
+                Thread.Sleep(sleepTimer);
             }
         }
 

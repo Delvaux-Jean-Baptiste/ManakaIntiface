@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            pictureBox1 = new PictureBox();
             multiScreenshot_button = new Button();
             toyColor_label = new Label();
             toyColorFinal_label = new Label();
@@ -50,20 +49,12 @@
             dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
             pistonToyFunctionBindingSource = new BindingSource(components);
             btn_Link = new Button();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            cb_connectionType = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)sexToyFunctionBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dg_sextoys).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dg_PistonToy).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pistonToyFunctionBindingSource).BeginInit();
             SuspendLayout();
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Location = new Point(38, 45);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(174, 43);
-            pictureBox1.TabIndex = 1;
-            pictureBox1.TabStop = false;
             // 
             // multiScreenshot_button
             // 
@@ -239,11 +230,21 @@
             btn_Link.UseVisualStyleBackColor = true;
             btn_Link.Click += btn_Link_Click;
             // 
+            // cb_connectionType
+            // 
+            cb_connectionType.FormattingEnabled = true;
+            cb_connectionType.Items.AddRange(new object[] { "Screen Capture", "SFM Toys" });
+            cb_connectionType.Location = new Point(38, 45);
+            cb_connectionType.Name = "cb_connectionType";
+            cb_connectionType.Size = new Size(121, 23);
+            cb_connectionType.TabIndex = 15;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(cb_connectionType);
             Controls.Add(btn_Link);
             Controls.Add(dg_PistonToy);
             Controls.Add(label1);
@@ -256,11 +257,9 @@
             Controls.Add(toyColorFinal_label);
             Controls.Add(toyColor_label);
             Controls.Add(multiScreenshot_button);
-            Controls.Add(pictureBox1);
             Name = "Form1";
             Text = "ManakaIntiface";
             Load += Form1_Load;
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)sexToyFunctionBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)dg_sextoys).EndInit();
             ((System.ComponentModel.ISupportInitialize)dg_PistonToy).EndInit();
@@ -270,7 +269,6 @@
         }
 
         #endregion
-        private PictureBox pictureBox1;
         private Button multiScreenshot_button;
         private Label toyColor_label;
         private Label toyColorFinal_label;
@@ -291,5 +289,6 @@
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private Button btn_Link;
         private BindingSource pistonToyFunctionBindingSource;
+        private ComboBox cb_connectionType;
     }
 }

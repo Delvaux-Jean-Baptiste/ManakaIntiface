@@ -26,7 +26,7 @@ namespace ManakaIntiface
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            cb_connectionType.SelectedIndex = 0;
         }
 
         async Task<String> connectBPClient()
@@ -44,6 +44,9 @@ namespace ManakaIntiface
         async Task<List<SexToyFunction>> scanDevicesBPClient()
         {
             var devices = await intifaceClient.scanDevicesIntifaceClient();
+
+            if (devices == null)
+                return null;
 
 
             sexToyFunctionBindingSource.Clear();
@@ -93,6 +96,8 @@ namespace ManakaIntiface
         private async void connectIntiface_Click(object sender, EventArgs e)
         {
             intifaceStatusFinal_label.Text = await connectBPClient();
+            if(cb_connectionType.SelectedIndex == 1)
+            intifaceClient.useSFM = true;
         }
         private void btnDisconnect_Click(object sender, EventArgs e)
         {

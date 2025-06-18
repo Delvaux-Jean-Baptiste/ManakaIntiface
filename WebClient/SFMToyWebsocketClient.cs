@@ -13,10 +13,18 @@ namespace ManakaIntiface.WebClient
 
         public async Task ConnectSFMToyClient(string url = "ws://localhost:11451/ws/")
         {
-            await client.ConnectAsync(new Uri(url), CancellationToken.None);
+            try
+            {
+                await client.ConnectAsync(new Uri(url), CancellationToken.None);
+            }
+            catch 
+            {
+                Console.WriteLine(
+                    $"Can't connect, exiting!");
+            }
         }
 
-        public async Task ReceiveMessages()
+        public async Task<string> ReceiveMessages()
         {
             if (client.State == WebSocketState.Open)
             {
@@ -24,7 +32,9 @@ namespace ManakaIntiface.WebClient
                 WebSocketReceiveResult result = await client.ReceiveAsync(buffer, CancellationToken.None);
                 string message = Encoding.UTF8.GetString(buffer.Array, 0, result.Count);
                 Console.WriteLine($"Received message: {message}");
+                return message;
             }
+            return "";
         }
     }
 }
