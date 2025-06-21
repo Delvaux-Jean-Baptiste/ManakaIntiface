@@ -18,6 +18,7 @@ namespace ManakaIntiface
 
         SexToyFunction vibratorStf;
         SexToyFunction pistonStf;
+        public bool useSFM = false;
 
         public Form1()
         {
@@ -36,6 +37,7 @@ namespace ManakaIntiface
 
             await sFMClient.ConnectSFMToyClient();
 
+            sFMClient.intifaceClient = intifaceClient;
             intifaceClient.sFMClient = sFMClient;
 
             return returnString;
@@ -89,15 +91,23 @@ namespace ManakaIntiface
 
         private void multiScreenshot_button_Click(object sender, EventArgs e)
         {
-            Thread thr = new Thread(intifaceClient.TriggerToys);
-            thr.Start();
+            if (!useSFM)
+            {
+                Thread thr = new Thread(intifaceClient.TriggerToys);
+                thr.Start();
+            }
+            else
+            {
+                Thread thr = new Thread(sFMClient.ReceiveMessages);
+                thr.Start();
+            }
         }
 
         private async void connectIntiface_Click(object sender, EventArgs e)
         {
             intifaceStatusFinal_label.Text = await connectBPClient();
             if(cb_connectionType.SelectedIndex == 1)
-            intifaceClient.useSFM = true;
+            useSFM = true;
         }
         private void btnDisconnect_Click(object sender, EventArgs e)
         {

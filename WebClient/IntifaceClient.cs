@@ -19,10 +19,9 @@ namespace ManakaIntiface.WebClient
         public SexToyFunction[] sexToyFunctions;
         public ButtplugClient client = new ButtplugClient("ButtplugClient");
         public SFMToyWebsocketClient sFMClient = new SFMToyWebsocketClient();
-        public bool useSFM = false;
 
-        SexToyFunction vibratorStf;
-        SexToyFunction pistonStf;
+        public SexToyFunction vibratorStf;
+        public SexToyFunction pistonStf;
 
         public async Task<string> ConnectIntiface()
         {
@@ -93,7 +92,7 @@ namespace ManakaIntiface.WebClient
             {
                 
 
-                if (!useSFM)
+                if (true)
                 {
                     if (vibratorStf != null)
                     {
@@ -165,8 +164,6 @@ namespace ManakaIntiface.WebClient
                 else
                 {
                     string toysStatus = null;
-                    if (sFMClient != null)
-                        toysStatus = await sFMClient.ReceiveMessages();
 
                     if (toysStatus != null || toysStatus != "")
                     {
@@ -225,7 +222,7 @@ namespace ManakaIntiface.WebClient
             client.DisconnectAsync();
         }
 
-        private void TriggerSexToy(SexToyFunction stf, double scalar)
+        public void TriggerSexToy(SexToyFunction stf, double scalar)
         {
             stf.device.ScalarAsync(new ScalarCmd.ScalarSubcommand(stf.id, scalar, stf.type));
         }
