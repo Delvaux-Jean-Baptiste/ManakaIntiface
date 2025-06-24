@@ -9,10 +9,14 @@ https://intiface.com/
 2) Start secret flasher Manaka
 https://www.dlsite.com/maniax/work/=/product_id/RJ01389782.html
 
-3) Enable vibrator status
+3a) Enable vibrator status
 Go to options => Game System => Show Vibrator Status ON
 
 4) Start ManakaIntiface
+
+4a) If using SFMToyWebsocket
+https://github.com/Henry1887/SFMToyWebsocket
+You can use the SFMToyWebsocket by Henry1887. It is a BepInExPlugin. If doing so, select SFM Toys instead of Screen Capture. Unlike screen capture, this'll work even if the game is not on the correct screen or resolution.
 
 5) Connect to Intiface
 Press the connect button to see available sex toys. Intiface status will change to "Connected" when done. If the lists are empty, no sex toys are detected
